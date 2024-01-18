@@ -15,19 +15,19 @@
  *
  */
 
-const faker = require("@faker-js/faker").fakerES;
-const { Article } = require("../models");
+
+const { Admin } = require("../models");
 
 module.exports = async () => {
-  const articles = [];
+  const admins = [
+    {
+      firstname: "Admin",
+      lastname: "Admin",
+      password: "admin",
+      email: "admin@admin.com",
+    },
+  ];
 
-  for (let i = 0; i < 500; i++) {
-    articles.push({
-      title: faker.lorem.sentence(5),
-      content: faker.lorem.paragraphs(),
-    });
-  }
-
-  await Article.bulkCreate(articles);
+  await Admin.bulkCreate(admins);
   console.log("[Database] Se corrió el seeder de Articles.");
 };

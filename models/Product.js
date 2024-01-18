@@ -21,14 +21,12 @@ class Product extends Model {
         price: {
           type: DataTypes.INTEGER,
         },
-        stock: {
-          type: DataTypes.INTEGER,
-        },
+        
         featured: {
           type: DataTypes.BOOLEAN,
         },
         sizes: {
-          type: DataTypes.STRING,
+          type: DataTypes.JSON,
         },
         slug: {
           type: DataTypes.STRING,

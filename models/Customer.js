@@ -18,7 +18,7 @@ class Customer extends Model {
           type: DataTypes.STRING,
           allowNull: false,
         },
-        adress: {
+        address: {
           type: DataTypes.STRING,
           allowNull: false,
         },
@@ -35,7 +35,7 @@ class Customer extends Model {
           },
         },
         phone: {
-          type: DataTypes.INTEGER, // URL
+          type: DataTypes.STRING, // URL
         },
       },
       {

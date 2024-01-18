@@ -8,7 +8,7 @@ const sequelize = new Sequelize(
     host: process.env.DB_HOST, // Ej: 127.0.0.1
     dialect: process.env.DB_CONNECTION, // Ej: mysql
     logging: false, // Para que no aparezcan mensajes en consola.
-  },
+  }
 );
 
 // Requerir todos los modelos:
@@ -18,6 +18,8 @@ const Product = require("./Product");
 const Admin = require("./Admin");
 const Category = require("./Category");
 const OrderProduct = require("./OrderProduct");
+const Size = require("./Size");
+const ProductSize = require("./ProductSize");
 
 // Inicializar todos los modelos:
 Customer.initModel(sequelize);
@@ -26,6 +28,7 @@ Category.initModel(sequelize);
 Product.initModel(sequelize);
 Admin.initModel(sequelize);
 OrderProduct.initModel(sequelize);
+Size.initModel(sequelize);
 
 /**
  * Luego de definir los modelos, se pueden establecer relaciones entre los
@@ -38,8 +41,11 @@ Customer.hasMany(Order);
 Order.belongsTo(Customer);
 Product.belongsTo(Category);
 Category.hasMany(Product);
-Order.belongsToMany(Product, { through: 'orderProduct' });
-Product.belongsToMany(Order, { through: 'orderProduct' });
+Order.belongsToMany(Product, { through: "orderProduct" });
+Product.belongsToMany(Order, { through: "orderProduct" });
+// Product.hasMany(Size);
+Product.belongsToMany(Size, { through: "productSize" });
+Size.belongsToMany(Product, { through: "productSize" });
 
 module.exports = {
   sequelize,
