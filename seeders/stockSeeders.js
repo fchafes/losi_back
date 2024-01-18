@@ -15,10 +15,10 @@
  *
  */
 
-const { ProductSize } = require("../models");
+const { Stock } = require("../models");
 
 module.exports = async () => {
-  const sizes = [
+  const stock = [
     {
       stock: 10,
       productId:1,
@@ -36,6 +36,6 @@ module.exports = async () => {
       },
   ];
 
-  await ProductSize.bulkCreate(sizes);
-  console.log("[Database] Se corrió el seeder de Sizes.");
+  await Stock.bulkCreate(stock);
+  console.log("[Database] Se corrió el seeder de Stock.");
 };

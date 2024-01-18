@@ -19,7 +19,7 @@ const Admin = require("./Admin");
 const Category = require("./Category");
 const OrderProduct = require("./OrderProduct");
 const Size = require("./Size");
-const ProductSize = require("./ProductSize");
+const Stock = require("./Stock");
 
 // Inicializar todos los modelos:
 Customer.initModel(sequelize);
@@ -29,11 +29,7 @@ Category.initModel(sequelize);
 Order.initModel(sequelize);
 OrderProduct.initModel(sequelize);
 Size.initModel(sequelize);
-ProductSize.initModel(sequelize);
-
-
-
-
+Stock.initModel(sequelize);
 
 /**
  * Luego de definir los modelos, se pueden establecer relaciones entre los
@@ -48,8 +44,8 @@ Product.belongsTo(Category);
 Category.hasMany(Product);
 Order.belongsToMany(Product, { through: "orderProduct" });
 Product.belongsToMany(Order, { through: "orderProduct" });
-Product.belongsToMany(Size, { through: "productSize", as: "productSizes" });
-Size.belongsToMany(Product, { through: "productSize" });
+Product.belongsToMany(Size, { through: "stock", as: "stocks" });
+Size.belongsToMany(Product, { through: "stock" });
 
 module.exports = {
   sequelize,
@@ -60,5 +56,5 @@ module.exports = {
   Customer,
   OrderProduct,
   Size,
-  ProductSize
+  Stock,
 };

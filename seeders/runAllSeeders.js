@@ -22,8 +22,10 @@ async function runAllSeeders() {
   await require("./categorySeeders")();
   await require("./productSeeders")();
   await require("./sizeSeeders")();
-  await require("./productSizeSeeders")();
-  
+  await require("./stockSeeders")();
+  await require("./orderSeeders")();
+  await require("./orderProductSeeders")();
+
   /**
    * Aquí se pueden ejectuar otros seeders que hayan en el sistema.
    * Por ejemplo, si se tuviesen seeders para los estudiantes

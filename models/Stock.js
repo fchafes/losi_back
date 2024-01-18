@@ -2,9 +2,9 @@ const { Model, DataTypes } = require("sequelize");
 
 
 
-class ProductSize extends Model {
+class Stock extends Model {
   static initModel(sequelize) {
-    ProductSize.init(
+    Stock.init(
       {
         id: {
           type: DataTypes.BIGINT.UNSIGNED,
@@ -17,12 +17,12 @@ class ProductSize extends Model {
       },
       {
         sequelize,
-        modelName: "productSize", // Nombre del modelo en singular y en minúscula.
+        modelName: "stock", // Nombre del modelo en singular y en minúscula.
       },
     );
 
-    return ProductSize;
+    return Stock;
   }
 }
 
-module.exports = ProductSize;
+module.exports = Stock;
