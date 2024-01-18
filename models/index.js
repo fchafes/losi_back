@@ -23,13 +23,17 @@ const ProductSize = require("./ProductSize");
 
 // Inicializar todos los modelos:
 Customer.initModel(sequelize);
-Order.initModel(sequelize);
-Category.initModel(sequelize);
-Product.initModel(sequelize);
 Admin.initModel(sequelize);
+Product.initModel(sequelize);
+Category.initModel(sequelize);
+Order.initModel(sequelize);
 OrderProduct.initModel(sequelize);
 Size.initModel(sequelize);
 ProductSize.initModel(sequelize);
+
+
+
+
 
 /**
  * Luego de definir los modelos, se pueden establecer relaciones entre los
@@ -44,10 +48,7 @@ Product.belongsTo(Category);
 Category.hasMany(Product);
 Order.belongsToMany(Product, { through: "orderProduct" });
 Product.belongsToMany(Order, { through: "orderProduct" });
-// Product.hasMany(Size);
-// In your Product model
 Product.belongsToMany(Size, { through: "productSize", as: "productSizes" });
-
 Size.belongsToMany(Product, { through: "productSize" });
 
 module.exports = {

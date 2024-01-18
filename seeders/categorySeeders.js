@@ -15,19 +15,21 @@
  *
  */
 
-
-const { Admin } = require("../models");
+const {  Category } = require("../models");
 
 module.exports = async () => {
-  const admins = [
+  const categories = [
     {
-      firstname: "Admin",
-      lastname: "Admin",
-      password: "admin",
-      email: "admin@admin.com",
+      name: "Skate",
+    },
+    {
+      name: "Clothing",
+    },
+    {
+      name: "Accesories",
     },
   ];
 
-  await Admin.bulkCreate(admins);
-  console.log("[Database] Se corrió el seeder de Admin.");
+  await Category.bulkCreate(categories);
+  console.log("[Database] Se corrió el seeder de categories.");
 };

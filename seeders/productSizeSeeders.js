@@ -15,19 +15,27 @@
  *
  */
 
-
-const { Admin } = require("../models");
+const { ProductSize } = require("../models");
 
 module.exports = async () => {
-  const admins = [
+  const sizes = [
     {
-      firstname: "Admin",
-      lastname: "Admin",
-      password: "admin",
-      email: "admin@admin.com",
+      stock: 10,
+      productId:1,
+      sizeId: 7  
     },
+    {
+        stock: 10,
+        productId:2,
+        sizeId: 1  
+      },
+      {
+        stock: 10,
+        productId:3,
+        sizeId: 4  
+      },
   ];
 
-  await Admin.bulkCreate(admins);
-  console.log("[Database] Se corrió el seeder de Admin.");
+  await ProductSize.bulkCreate(sizes);
+  console.log("[Database] Se corrió el seeder de Sizes.");
 };
