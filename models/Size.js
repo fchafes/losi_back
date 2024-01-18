@@ -11,7 +11,7 @@ class Size extends Model {
           primaryKey: true,
           autoIncrement: true,
         },
-        size: {
+        sizes: {
             type: DataTypes.STRING,
             allowNull: false,
             

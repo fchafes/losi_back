@@ -29,6 +29,7 @@ Product.initModel(sequelize);
 Admin.initModel(sequelize);
 OrderProduct.initModel(sequelize);
 Size.initModel(sequelize);
+ProductSize.initModel(sequelize);
 
 /**
  * Luego de definir los modelos, se pueden establecer relaciones entre los
@@ -44,7 +45,9 @@ Category.hasMany(Product);
 Order.belongsToMany(Product, { through: "orderProduct" });
 Product.belongsToMany(Order, { through: "orderProduct" });
 // Product.hasMany(Size);
-Product.belongsToMany(Size, { through: "productSize" });
+// In your Product model
+Product.belongsToMany(Size, { through: "productSize", as: "productSizes" });
+
 Size.belongsToMany(Product, { through: "productSize" });
 
 module.exports = {
@@ -55,4 +58,6 @@ module.exports = {
   Admin,
   Customer,
   OrderProduct,
+  Size,
+  ProductSize
 };
