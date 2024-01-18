@@ -25,9 +25,6 @@ class Product extends Model {
         featured: {
           type: DataTypes.BOOLEAN,
         },
-        sizes: {
-          type: DataTypes.JSON,
-        },
         slug: {
           type: DataTypes.STRING,
         },
