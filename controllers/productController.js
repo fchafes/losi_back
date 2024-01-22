@@ -1,7 +1,22 @@
-const { Article } = require("../models");
+const { Product, Customer } = require("../models");
 
 // Display a listing of the resource.
 async function index(req, res) {}
+
+// Devuelve productos destacados
+async function featured(req, res) {
+  try {
+    const featuredProducts = await Product.findAll({
+      where: {
+        featured: true
+      }
+    });
+    res.status(200).json(featuredProducts);
+  } catch (error) {
+    console.error('Error al obtener productos destacados:', error);
+    res.status(500).json({ error: 'Error interno del servidor' });
+  }
+}
 
 // Display the specified resource.
 async function show(req, res) {}
@@ -20,6 +35,7 @@ async function destroy(req, res) {}
 
 module.exports = {
   index,
+  featured,
   show,
   store,
   update,

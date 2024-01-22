@@ -42,6 +42,17 @@ module.exports = async () => {
       slug: "provo-full-zip-jacket",
       categoryId: 2,
     },
+    {
+      name: "Skateboard Marca Play",
+      description: `Industria nacional`,
+      photo:
+        "https://quasiskateboards.com/cdn/shop/files/RIZZO_d19e66b0-ad4b-4625-ae3d-eceeb64783c4_1024x1024.jpg?v=1695238867/*",
+      price: 2900,
+      featured: 0,
+
+      slug: "rizzo-night-fly",
+      categoryId: 1,
+    },
   ];
 
   await Product.bulkCreate(products);

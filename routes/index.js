@@ -3,8 +3,8 @@
  * Una alternativa podría ser organizar las rutas por entidad:
  */
 
-const userRoutes = require("./userRoutes");
-const articleRoutes = require("./articleRoutes");
+const customerRoutes = require("./customerRoutes");
+const productRoutes = require("./productRoutes");
 
 module.exports = (app) => {
   /**
@@ -13,6 +13,6 @@ module.exports = (app) => {
    * mismo modo, las rutas relativas a los artículos se debería agrupar bajo
    * la URL `/articles` (en inglés y en plural).
    */
-  app.use("/users", userRoutes);
-  app.use("/articles", articleRoutes);
+  app.use("/customers", customerRoutes);
+  app.use("/products", productRoutes);
 };
