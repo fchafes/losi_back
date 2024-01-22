@@ -6,7 +6,6 @@ const customerController = require("../controllers/customerController");
 // ...
 
 router.get("/", customerController.index);
-router.get("/featured", customerController.index);
 router.post("/", customerController.store);
 router.get("/:id", customerController.show);
 router.patch("/:id", customerController.update);
