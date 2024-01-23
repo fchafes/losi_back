@@ -3,24 +3,17 @@ const { Product } = require("../models");
 module.exports = async () => {
   const products = [
     {
-      name: "Rizzo Night Fly 8.375",
-      description: `Dick Rizzo Pro Model, 8.375" x 32.25", WB 14.25"`,
+      name: "Rowe 'Bedliner' [8.5]",
+      description: `■ Jon Rowe Pro Model
+      ■ 8.5" x 32.125" WB 14.25"
+      ■ Full Dip Painted Deck
+      ■ Manufactured at PS Stix
+      ■ Artwork by Max Matoon`,
       photo:
-        "https://quasiskateboards.com/cdn/shop/files/RIZZO_d19e66b0-ad4b-4625-ae3d-eceeb64783c4_1024x1024.jpg?v=1695238867/*",
-      price: 2900,
+        "https://quasiskateboards.com/cdn/shop/files/ROWE_d920556c-16bc-4ef5-8134-e95f13366990_1024x1024.jpg?v=1695238977",
+      price: 2899,
       featured: 1,
-
-      slug: "rizzo-night-fly",
-      categoryId: 1,
-    },
-    {
-      name: "Quasi x Vans Crockett Hi Decon",
-      description: `leather`,
-      photo:
-        "https://quasiskateboards.com/cdn/shop/files/FW23PANTS-HATSMASTER_0043_Layer9_1024x1024.jpg?v=1696446466",
-      price: 3828,
-      featured: 1,
-      slug: "quasi-x-vans-crockett-hi-decon",
+      slug: "rowe-bedliner",
       categoryId: 2,
     },
     {
@@ -60,6 +53,17 @@ module.exports = async () => {
         "https://quasiskateboards.com/cdn/shop/files/RIZZO_d19e66b0-ad4b-4625-ae3d-eceeb64783c4_1024x1024.jpg?v=1695238867/*",
       price: 2900,
       featured: 0,
+
+      slug: "rizzo-night-fly",
+      categoryId: 1,
+    },
+    {
+      name: "Rizzo Night Fly 8.375",
+      description: `Dick Rizzo Pro Model, 8.375" x 32.25", WB 14.25"`,
+      photo:
+        "https://quasiskateboards.com/cdn/shop/files/RIZZO_d19e66b0-ad4b-4625-ae3d-eceeb64783c4_1024x1024.jpg?v=1695238867/*",
+      price: 2900,
+      featured: 1,
 
       slug: "rizzo-night-fly",
       categoryId: 1,
