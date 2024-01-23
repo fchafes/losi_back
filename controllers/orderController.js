@@ -4,10 +4,7 @@ const { Order, OrderProduct, Product, Customer } = require("../models");
 async function index(req, res) {
   try {
     const orders = await Order.findAll({
-      include: [
-        { model: OrderProduct, include: [Product] },
-        { model: Customer },
-      ],
+      include: [Product],
     });
 
     res.status(200).json(orders);
