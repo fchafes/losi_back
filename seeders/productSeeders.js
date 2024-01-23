@@ -43,6 +43,17 @@ module.exports = async () => {
       categoryId: 2,
     },
     {
+      name: "K2 [White]",
+      description: `■ Midweight Short Sleeve Tee
+      ■ 100% Cotton`,
+      photo:
+        "https://quasiskateboards.com/cdn/shop/files/K2WHITE_1024x1024.jpg?v=1695659584",
+      price: 1289,
+      featured: 1,
+      slug: "provo-full-zip-jacket",
+      categoryId: 2,
+    },
+    {
       name: "Skateboard Marca Play",
       description: `Industria nacional`,
       photo:
