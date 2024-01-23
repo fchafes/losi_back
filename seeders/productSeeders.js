@@ -18,7 +18,7 @@ module.exports = async () => {
     },
     {
       name: "Provo Full Zip Jacket",
-      description: `leather■ High Pile Polar Fleece Shell
+      description: `■ High Pile Polar Fleece Shell
       ■ Mesh Lining
       ■ Full Zip Front
       ■ Half Collar
@@ -43,7 +43,7 @@ module.exports = async () => {
         "https://quasiskateboards.com/cdn/shop/files/K2WHITE_1024x1024.jpg?v=1695659584",
       price: 1289,
       featured: 1,
-      slug: "provo-full-zip-jacket",
+      slug: "k2-white",
       categoryId: 2,
     },
     {
@@ -54,7 +54,7 @@ module.exports = async () => {
       price: 2900,
       featured: 0,
 
-      slug: "rizzo-night-fly",
+      slug: "skateboard-marca-play",
       categoryId: 1,
     },
     {
