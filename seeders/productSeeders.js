@@ -13,10 +13,6 @@ module.exports = async () => {
         "https://quasiskateboards.com/cdn/shop/files/ROWE_d920556c-16bc-4ef5-8134-e95f13366990_1024x1024.jpg?v=1695238977",
       price: 2899,
       featured: 1,
-<<<<<<< Updated upstream
-      slug: "rowe-bedliner",
-      categoryId: 2,
-=======
 
       slug: "rizzo-night-fly",
       categoryId: 4,
@@ -30,7 +26,6 @@ module.exports = async () => {
       featured: 1,
       slug: "quasi-x-vans-crockett-hi-decon",
       categoryId: 5,
->>>>>>> Stashed changes
     },
     {
       name: "Provo Full Zip Jacket",
@@ -69,21 +64,6 @@ module.exports = async () => {
         "https://quasiskateboards.com/cdn/shop/files/RIZZO_d19e66b0-ad4b-4625-ae3d-eceeb64783c4_1024x1024.jpg?v=1695238867/*",
       price: 2900,
       featured: 0,
-<<<<<<< Updated upstream
-
-      slug: "skateboard-marca-play",
-      categoryId: 1,
-    },
-    {
-      name: "Rizzo Night Fly 8.375",
-      description: `Dick Rizzo Pro Model, 8.375" x 32.25", WB 14.25"`,
-      photo:
-        "https://quasiskateboards.com/cdn/shop/files/RIZZO_d19e66b0-ad4b-4625-ae3d-eceeb64783c4_1024x1024.jpg?v=1695238867/*",
-      price: 2900,
-      featured: 1,
-
-=======
->>>>>>> Stashed changes
       slug: "rizzo-night-fly",
       categoryId: 4,
     },
