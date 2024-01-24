@@ -20,13 +20,19 @@ const {  Category } = require("../models");
 module.exports = async () => {
   const categories = [
     {
-      name: "Skate",
-    },
-    {
-      name: "Clothing",
-    },
-    {
       name: "Accesories",
+    },
+    {
+      name: "Tops",
+    },
+    {
+      name: "Bottoms",
+    },
+    {
+      name: "Decks",
+    },
+    {
+      name: "Others",
     },
   ];
 

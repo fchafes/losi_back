@@ -34,6 +34,66 @@ module.exports = async () => {
         productId:3,
         sizeId: 4  
       },
+      {
+        stock: 10,
+        productId:4,
+        sizeId: 7 , 
+      },
+      {
+        stock: 10,
+        productId:5,
+        sizeId: 2 , 
+      },
+      {
+        stock: 10,
+        productId:6,
+        sizeId: null ,  
+      },
+      {
+        stock: 10,
+        productId:7,
+        sizeId: 1 ,
+      },
+      {
+        stock: 10,
+        productId:8,
+        sizeId: null  
+      },
+      {
+        stock: 10,
+        productId:9,
+        sizeId: 3  
+      },
+      {
+        stock: 10,
+        productId:10,
+        sizeId: 5  
+      },
+      {
+        stock: 10,
+        productId:11,
+        sizeId: null  
+      },
+      {
+        stock: 10,
+        productId:12,
+        sizeId: 4  
+      },
+      {
+        stock: 10,
+        productId:13,
+        sizeId: 4  
+      },
+      {
+        stock: 10,
+        productId:14,
+        sizeId: 4  
+      },
+      {
+        stock: 10,
+        productId:15,
+        sizeId: 4  
+      },
   ];
 
   await Stock.bulkCreate(stock);
