@@ -5,7 +5,7 @@ async function category(req, res) {
     try {
         const categoryName = req.params.categoryName;
 
-        // Fetch products with the specified categoryName and include the associated Category
+        
         const products = await Product.findAll({
             include: {
                 model: Category,

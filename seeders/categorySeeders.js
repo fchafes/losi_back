@@ -20,7 +20,7 @@ const {  Category } = require("../models");
 module.exports = async () => {
   const categories = [
     {
-      name: "Accesories",
+      name: "Accessories",
     },
     {
       name: "Tops",
