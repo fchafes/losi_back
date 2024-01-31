@@ -1,4 +1,4 @@
-const { Product , Category} = require("../models");
+const { Product , Category, Size , Stock} = require("../models");
 
 // Display a listing of the resource.
 async function index(req, res) {
@@ -63,19 +63,28 @@ async function category(req, res) {
 async function show(req, res) {
   try {
     const productId = req.params.id;
-    const product = await Product.findByPk(productId);
+
+    // Include the Size model and fetch the associated sizes
+    const product = await Product.findByPk(productId, {
+      include: [{ model: Size, as: 'stocks' }],
+    });
 
     if (!product) {
       res.status(404).send("Product not found");
       return;
     }
 
+    // Extract relevant details from the product object
     const productDetails = {
       id: product.id,
       name: product.name,
       description: product.description,
       photo: product.photo,
       price: product.price,
+      sizes: product.stocks.map(size => ({
+        id: size.id,
+        size: size.sizes
+      })),
     };
 
     res.json(productDetails);
@@ -84,6 +93,7 @@ async function show(req, res) {
     res.status(500).send("An error occurred.");
   }
 }
+
 
 // Store a newly created resource in storage.
 async function store(req, res) {}

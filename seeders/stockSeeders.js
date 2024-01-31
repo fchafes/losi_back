@@ -24,6 +24,7 @@ module.exports = async () => {
       productId:1,
       sizeId: 7  
     },
+    
     {
         stock: 10,
         productId:2,
@@ -33,6 +34,11 @@ module.exports = async () => {
         stock: 10,
         productId:3,
         sizeId: 4  
+      },
+      {
+        stock: 10,
+        productId:3,
+        sizeId: 3  
       },
       {
         stock: 10,
