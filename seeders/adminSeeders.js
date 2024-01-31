@@ -15,15 +15,17 @@
  *
  */
 
-
+const bcrypt = require("bcrypt");
 const { Admin } = require("../models");
 
 module.exports = async () => {
+  const hashedPassword = await bcrypt.hash("admin", 10);
+
   const admins = [
     {
       firstname: "Admin",
       lastname: "Admin",
-      password: "admin",
+      password: hashedPassword, // Use the hashed password
       email: "admin@admin.com",
     },
   ];
