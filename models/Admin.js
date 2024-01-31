@@ -37,11 +37,12 @@ class Admin extends Model {
         modelName: "admin",
         hooks: {
           beforeCreate: async (admin, options) => {
+            console.log("Before create hook triggered"); 
             // Hash the password before saving it to the database
-            const hashedPassword = await bcrypt.hash(Admin.password, 10);
-            Admin.password = hashedPassword;
+            const hashedPassword = await bcrypt.hash(admin.password, 10);
+            admin.password = hashedPassword;
           },
-        }, // Nombre del modelo en singular y en minúscula.
+        },
       }
     );
     return Admin;
