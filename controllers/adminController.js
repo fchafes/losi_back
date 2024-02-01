@@ -39,7 +39,7 @@ async function login(req, res) {
 
     console.log("Token creado:", token);
 
-    return res.json({ token, id: admin.id });
+    return res.json({ token, id: admin.id, firstname:admin.firstname });
   } catch (error) {
     console.error("Error al procesar la solicitud de inicio de sesión:", error);
     return res.status(500).json("Internal Server Error");
