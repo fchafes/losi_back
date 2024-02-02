@@ -5,7 +5,7 @@ const productController = require("../controllers/productController");
 // Rutas relacionadas a los usuarios:
 // ...
 
-router.get("/products", productController.index);
+router.get("/", productController.index);
 router.get("/featured", productController.featured);
 router.post("/", productController.store);
 router.get("/:id", productController.show);
