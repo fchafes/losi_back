@@ -81,6 +81,7 @@ async function show(req, res) {
       description: product.description,
       photo: product.photo,
       price: product.price,
+      slug: product.slug,
       sizes: product.stocks.map(size => ({
         id: size.id,
         size: size.sizes
