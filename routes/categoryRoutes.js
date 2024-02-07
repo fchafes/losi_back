@@ -5,7 +5,7 @@ const categoryController = require("../controllers/categoryController");
 // Rutas relacionadas a los usuarios:
 // ...
 
-// router.get("/", categoryController.index);
+router.get("/", categoryController.index);
 // router.get("/featured", categoryController.featured);
 // router.post("/", categoryController.store);
 router.get("/:categoryName", categoryController.category);
