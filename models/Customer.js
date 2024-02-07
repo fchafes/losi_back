@@ -44,7 +44,7 @@ class Customer extends Model {
         hooks: {
           beforeCreate: async (customer, options) => {
             // Hash the password before saving it to the database
-            const hashedPassword = await bcrypt.hash(Customer.password, 10);
+            const hashedPassword = await bcrypt.hash(customer.password, 10);
             Customer.password = hashedPassword;
           },
         }, // Nombre del modelo en singular y en minúscula.
