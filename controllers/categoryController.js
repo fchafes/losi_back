@@ -33,8 +33,33 @@ async function category(req, res) {
         res.status(500).send("An error occurred.");
     }
 }
+async function store(req, res) {
+    try {
+      const name = req.body.name;
+  
+      // Log the received content
+      console.log("Received name:", name);
+  
+      // si lo envian vacio
+      if (!name) {
+        return res.status(400).json({ error: "Article name is required" });
+      }
+      // Lo meto en la Base de Datos
+      const newCategory = await Category.create({ name });
+      
+      console.log("se ha creado una nueva categoría");
+      
+      // Respond with the created category in JSON format
+      res.json({ success: true, message: "Category created successfully", category: newCategory });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: "Internal Server Error" });
+    }
+}
+
 
   module.exports = {
     category,
     index,
+    store,
   };
