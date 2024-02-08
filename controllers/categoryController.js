@@ -57,9 +57,58 @@ async function store(req, res) {
     }
 }
 
+async function update(req, res) {
+    try {
+        // Extrae el ID de la categoría a actualizar desde los parámetros de la URL
+        const categoryId = req.params.id;
+        
+        // Busca la categoría en la base de datos
+        const category = await Category.findByPk(categoryId);
+
+        // Si la categoría no existe, devuelve un error 404
+        if (!category) {
+            return res.status(404).json({ error: 'Category not found' });
+        }
+
+        // Actualiza los campos de la categoría con los datos recibidos en el cuerpo de la solicitud
+        category.name = req.body.name;
+
+        // Guarda los cambios en la base de datos
+        await category.save();
+
+        // Devuelve la categoría actualizada en la respuesta
+        res.json({ success: true, message: 'Category updated successfully', category });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+}
+
+async function destroy(req, res) {
+    const categoryId = req.params.id;
+    try {
+      const category = await Category.findByPk(categoryId);
+      if (!category) {
+        return res.status(404).json({ error: "Categoría no encontrada" });
+      }
+      // const authorId = article.authorId;
+  
+      await category.destroy();
+      console.log("Se ha eliminado la categoría con éxito.");
+      // await Author.update({ lastArticleId: null }, { where: { id: authorId } });
+  
+      res.json({ message: "Categoría eliminado con exito." });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: "Error al eliminar el artículo" });
+    }
+  }
+
 
   module.exports = {
     category,
     index,
     store,
+    update,
+    destroy,
   };
