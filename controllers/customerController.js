@@ -20,21 +20,21 @@ async function index(req, res) {
 // Display the specified resource.
 async function show(req, res) {}
 
-// Store a newly created resource in storage.
+
 async function store(req, res) {
   const { firstname, lastname, email, address, phone, password } = req.body;
 
   try {
-    
+    // Check if the email is already registered
     const existingCustomer = await Customer.findOne({ where: { email } });
     if (existingCustomer) {
       return res.status(400).json({ message: 'Email is already registered' });
     }
 
-    
+    // Hash the password
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    console.log(req.body)
+    // Create a new customer record
     const newCustomer = await Customer.create({
       firstname,
       lastname,
@@ -47,13 +47,29 @@ async function store(req, res) {
     // Generate a JWT token
     const token = jwt.sign({ customerId: newCustomer.id }, 'stringsecreto', { expiresIn: '1h' });
 
-    // Send the token back to the client
-    res.status(201).json({ token });
+    // Construct the response with token and customer info
+    const responseData = {
+      token,
+      customer: {
+        id: newCustomer.id,
+        firstname: newCustomer.firstname,
+        lastname: newCustomer.lastname,
+        email: newCustomer.email,
+        address: newCustomer.address,
+        phone: newCustomer.phone,
+      },
+    };
+
+    // Send the response back to the client
+    res.status(201).json(responseData);
   } catch (error) {
     console.error('Error signing up:', error);
     res.status(500).json({ message: 'Internal server error' });
   }
 }
+
+module.exports = store;
+
 
 // Update the specified resource in storage.
 async function update(req, res) {}
