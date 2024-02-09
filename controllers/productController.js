@@ -1,4 +1,5 @@
 const { Product , Category, Size , Stock} = require("../models");
+const formidable = require("formidable");
 
 // Display a listing of the resource.
 async function index(req, res) {
@@ -97,7 +98,43 @@ async function show(req, res) {
 
 
 // Store a newly created resource in storage.
-async function store(req, res) {}
+async function store(req, res) {
+  const form = new formidable.IncomingForm({
+    multiples: true,
+    keepExtensions: true,
+    uploadDir: __dirname + "/../public", // Set the path where you want to save the uploaded files
+  });
+
+  form.parse(req, async (err, fields, files) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).json({ error: "Error parsing form data" });
+    }
+
+    const { name, description, price} = fields;
+
+    const photo = files.photo; // This will contain information about the uploaded profile picture
+    console.log(fields.name[0]);
+    console.log("Received data:", fields);
+    console.log("Received files:", files);
+    console.log(photo);
+    try {
+      // Now you can use the User.create() with the data from fields and files
+      const newProduct = await Product.create({
+        name: name[0],
+        description: description[0],
+        price: price[0],
+        photo: photo[0].newFilename,
+      });
+
+      res.json(newProduct);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: "Error creating product" });
+    }
+  });
+}
+
 
 // Update the specified resource in storage.
 async function update(req, res) {}
