@@ -1,5 +1,6 @@
-const { Product , Category, Size , Stock} = require("../models");
+const { Product, Category, Size, Stock } = require("../models");
 const formidable = require("formidable");
+const { Sequelize, Op } = require("sequelize");
 
 // Display a listing of the resource.
 async function index(req, res) {
@@ -7,16 +8,32 @@ async function index(req, res) {
     const products = await Product.findAll();
 
     if (products.length === 0) {
-      return res.status(404).json({ message: 'No se encontraron productos.' });
+      return res.status(404).json({ message: "No se encontraron productos." });
     }
 
     res.status(200).json(products);
   } catch (error) {
-    console.error('Error al obtener productos:', error);
-    res.status(500).json({ error: 'Error interno del servidor' });
+    console.error("Error al obtener productos:", error);
+    res.status(500).json({ error: "Error interno del servidor" });
   }
 }
 
+async function search(req, res) {
+  try {
+    const searchTerm = req.query.search;
+    const results = await Product.findAll({
+      where: {
+        name: {
+          [Sequelize.Op.like]: `${searchTerm}%`,
+        },
+      },
+    });
+    res.json(results);
+  } catch (error) {
+    console.error("Error searching products:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+}
 // Devuelve productos destacados
 async function featured(req, res) {
   try {
@@ -43,7 +60,7 @@ async function category(req, res) {
     });
 
     if (!category) {
-      res.status(404).send('Category not found');
+      res.status(404).send("Category not found");
       return;
     }
 
@@ -55,8 +72,8 @@ async function category(req, res) {
 
     res.json(products);
   } catch (error) {
-    console.error('Error fetching products:', error);
-    res.status(500).send('An error occurred.');
+    console.error("Error fetching products:", error);
+    res.status(500).send("An error occurred.");
   }
 }
 
@@ -67,7 +84,7 @@ async function show(req, res) {
 
     // Include the Size model and fetch the associated sizes
     const product = await Product.findByPk(productId, {
-      include: [{ model: Size, as: 'stocks' }],
+      include: [{ model: Size, as: "stocks" }],
     });
 
     if (!product) {
@@ -83,9 +100,9 @@ async function show(req, res) {
       photo: product.photo,
       price: product.price,
       slug: product.slug,
-      sizes: product.stocks.map(size => ({
+      sizes: product.stocks.map((size) => ({
         id: size.id,
-        size: size.sizes
+        size: size.sizes,
       })),
     };
 
@@ -95,7 +112,6 @@ async function show(req, res) {
     res.status(500).send("An error occurred.");
   }
 }
-
 
 // Store a newly created resource in storage.
 async function store(req, res) {
@@ -111,7 +127,7 @@ async function store(req, res) {
       return res.status(500).json({ error: "Error parsing form data" });
     }
 
-    const { name, description, price} = fields;
+    const { name, description, price } = fields;
 
     const photo = files.photo; // This will contain information about the uploaded profile picture
     console.log(fields.name[0]);
@@ -135,7 +151,6 @@ async function store(req, res) {
   });
 }
 
-
 // Update the specified resource in storage.
 async function update(req, res) {}
 
@@ -152,5 +167,6 @@ module.exports = {
   store,
   update,
   destroy,
-  category
+  category,
+  search,
 };
