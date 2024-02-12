@@ -137,7 +137,57 @@ async function store(req, res) {
 
 
 // Update the specified resource in storage.
-async function update(req, res) {}
+async function update(req, res) {
+  const productId = req.params.id; // Obtener el ID del producto de los parámetros de la solicitud
+
+  const form = new formidable.IncomingForm({
+    multiples: true,
+    keepExtensions: true,
+    uploadDir: __dirname + "/../public", // Establecer la ruta donde quieres guardar los archivos subidos
+  });
+
+  form.parse(req, async (err, fields, files) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).json({ error: "Error parsing form data" });
+    }
+
+    const { name, description, price } = fields;
+
+    // Si se subió una nueva foto, obtener la información de la foto
+    let photo;
+    if (files.photo) {
+      photo = files.photo;
+    }
+
+    try {
+      // Buscar el producto en la base de datos por ID
+      const product = await Product.findById(productId);
+
+      // Verificar si el producto existe
+      if (!product) {
+        return res.status(404).json({ error: "Product not found" });
+      }
+
+      // Actualizar los campos del producto con los valores recibidos
+      if (name) product.name = name[0];
+      if (description) product.description = description[0];
+      if (price) product.price = price[0];
+      if (photo) product.photo = photo[0].newFilename;
+
+      // Guardar los cambios en el producto actualizado
+      await product.save();
+
+      // Responder con el producto actualizado en formato JSON
+      res.json({ success: true, message: "Product updated successfully", product });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: "Error updating product" });
+    }
+  });
+}
+
+module.exports = { update };
 
 // Remove the specified resource from storage.
 async function destroy(req, res) {}
