@@ -108,7 +108,36 @@ async function login(req, res) {
 }
 
 // Update the specified resource in storage.
-async function update(req, res) {}
+// Update the specified resource in storage.
+async function update(req, res) {
+  const { id } = req.params; // Assuming you pass the customer ID in the URL params
+  const { firstname, lastname, email, address, phone } = req.body;
+
+  try {
+    // Find the customer by ID
+    const customer = await Customer.findByPk(id);
+    if (!customer) {
+      return res.status(404).json({ message: 'Customer not found' });
+    }
+
+    // Update customer information
+    customer.firstname = firstname ;
+    customer.lastname = lastname ;
+    customer.email = email ;
+    customer.address = address ;
+    customer.phone = phone ;
+
+    // Save changes to the database
+    await customer.save();
+
+    // Construct and send response
+    res.status(200).json({ message: 'Customer updated successfully', customer });
+  } catch (error) {
+    console.error('Error occurred during update:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+}
+
 
 // Remove the specified resource from storage.
 async function destroy(req, res) {}
