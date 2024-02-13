@@ -206,7 +206,26 @@ async function update(req, res) {
 module.exports = { update };
 
 // Remove the specified resource from storage.
-async function destroy(req, res) {}
+async function destroy(req, res) {
+  const productId = req.params.id;
+  try {
+    const product = await Product.findByPk(productId);
+    if (!product) {
+      return res.status(404).json({ error: "Producto no encontrada" });
+    }
+    // const authorId = article.authorId;
+
+    await product.destroy();
+    console.log("Se ha eliminado el producto con éxito.");
+    // await Author.update({ lastArticleId: null }, { where: { id: authorId } });
+
+    res.json({ message: "Producto eliminado con exito." });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Error al eliminar el producto" });
+  }
+}
+
 
 // Otros handlers...
 // ...
