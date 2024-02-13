@@ -68,8 +68,44 @@ async function store(req, res) {
   }
 }
 
-module.exports = store;
+async function login(req, res) {
+  const { email, password } = req.body;
 
+  try {
+    // Check if the customer exists
+    const existingCustomer = await Customer.findOne({ where: { email } });
+    if (!existingCustomer) {
+      return res.status(401).json({ message: 'Invalid email or password' });
+    }
+
+    // Check if the password is correct
+    const isPasswordValid = await bcrypt.compare(password, existingCustomer.password);
+    if (!isPasswordValid) {
+      return res.status(401).json({ message: 'Invalid email or password' });
+    }
+
+    // Generate a JWT token
+    const token = jwt.sign({ customerId: existingCustomer.id }, 'stringsecreto', { expiresIn: '1h' });
+
+    // Construct the response with token and customer info
+    const responseData = {
+      token,
+      customer: {
+        id: existingCustomer.id,
+        firstname: existingCustomer.firstname,
+        lastname: existingCustomer.lastname,
+        email: existingCustomer.email,
+        address: existingCustomer.address,
+        phone: existingCustomer.phone,
+      },
+    };
+
+    res.status(200).json(responseData);
+  } catch (error) {
+    console.error('Error occurred during login:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+}
 
 // Update the specified resource in storage.
 async function update(req, res) {}
@@ -86,4 +122,5 @@ module.exports = {
   store,
   update,
   destroy,
+  login,
 };
