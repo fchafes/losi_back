@@ -168,7 +168,7 @@ async function update(req, res) {
       return res.status(500).json({ error: "Error parsing form data" });
     }
 
-    const { name, description, price } = fields;
+    const { name, description, price, featured } = fields;
 
     // Si se subió una nueva foto, obtener la información de la foto
     let photo;
@@ -190,7 +190,7 @@ async function update(req, res) {
       if (description) product.description = description[0];
       if (price) product.price = price[0];
       if (photo) product.photo = photo[0].newFilename;
-
+      if (featured) product.featured = featured[0] === 'true';
       // Guardar los cambios en el producto actualizado
       await product.save();
 
