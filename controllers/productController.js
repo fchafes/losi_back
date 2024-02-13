@@ -127,7 +127,7 @@ async function store(req, res) {
       return res.status(500).json({ error: "Error parsing form data" });
     }
 
-    const { name, description, price } = fields;
+    const { name, description, price,featured } = fields;
 
     const photo = files.photo; // This will contain information about the uploaded profile picture
     console.log(fields.name[0]);
@@ -141,6 +141,7 @@ async function store(req, res) {
         description: description[0],
         price: price[0],
         photo: photo[0].newFilename,
+        featured: featured[0] === 'true'
       });
 
       res.json(newProduct);
@@ -177,7 +178,7 @@ async function update(req, res) {
 
     try {
       // Buscar el producto en la base de datos por ID
-      const product = await Product.findById(productId);
+      const product = await Product.findByPk(productId);
 
       // Verificar si el producto existe
       if (!product) {
