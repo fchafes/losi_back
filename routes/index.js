@@ -9,6 +9,8 @@ const adminRoutes = require("./adminRoutes");
 const orderRoutes = require("./orderRoutes")
 const categoryRoutes = require("./categoryRoutes")
 const tokenRoutes = require("./tokenRoutes")
+const stockRoutes = require("./stockRoutes")
+const sizeRoutes = require("./sizeRoutes")
 const orderProductRoutes = require("./orderProductRoutes")
 
 
@@ -25,6 +27,8 @@ module.exports = (app) => {
   app.use("/orders", orderRoutes);
   app.use("/category", categoryRoutes);
   app.use("/tokens", tokenRoutes);
+  app.use("/stock", stockRoutes);
+  app.use("/size", sizeRoutes);
   app.use("/orderProduct", orderProductRoutes);
 
 };

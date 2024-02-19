@@ -69,23 +69,26 @@ async function store(req, res) {
 }
 
 async function login(req, res) {
-  const { email, password } = req.body;
+  const customerEmail = req.body.email;
+  const customerPassword = req.body.password;
 
   try {
     // Check if the customer exists
-    const existingCustomer = await Customer.findOne({ where: { email } });
+    const existingCustomer = await Customer.findOne({ where: { email: customerEmail } });
     if (!existingCustomer) {
-      return res.status(401).json({ message: 'Invalid email or password' });
+      return res.status(401).json({ message: 'User not found' });
     }
 
     // Check if the password is correct
-    const isPasswordValid = await bcrypt.compare(password, existingCustomer.password);
+    const isPasswordValid = await bcrypt.compare(customerPassword, existingCustomer.password);
     if (!isPasswordValid) {
-      return res.status(401).json({ message: 'Invalid email or password' });
+      return res.status(401).json({ message: 'Invalid password' });
     }
 
     // Generate a JWT token
     const token = jwt.sign({ customerId: existingCustomer.id }, 'stringsecreto', { expiresIn: '1h' });
+
+    console.log("Token creado:", token);
 
     // Construct the response with token and customer info
     const responseData = {
@@ -100,7 +103,7 @@ async function login(req, res) {
       },
     };
 
-    res.status(200).json(responseData);
+    return res.status(200).json(responseData);
   } catch (error) {
     console.error('Error occurred during login:', error);
     res.status(500).json({ message: 'Internal server error' });
