@@ -46,7 +46,7 @@ Order.belongsToMany(Product, { through: "orderProduct" });
 Product.belongsToMany(Order, { through: "orderProduct" });
 Product.belongsToMany(Size, { through: "stock", as: "stocks" });
 Size.belongsToMany(Product, { through: "stock" });
-OrderProduct.belongsTo(Size)
+// OrderProduct.belongsTo(Size)
 
 module.exports = {
   sequelize,

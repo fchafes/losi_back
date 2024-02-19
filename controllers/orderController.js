@@ -56,6 +56,7 @@ async function store(req,res) {
           orderId: order.id,
           productId: item.productId,
           quantity: item.quantity,
+          selectedSize: item.selectedSize
         });
       })
     );

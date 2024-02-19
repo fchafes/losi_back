@@ -15,7 +15,10 @@ class OrderProduct extends Model {
             allowNull: false,
             defaultValue: 1, // Puedes ajustar el valor predeterminado según tus necesidades
           },
-        
+        selectedSize:{
+          type: DataTypes.STRING,
+          allowNull: true,
+        }
       },
       {
         sequelize,
