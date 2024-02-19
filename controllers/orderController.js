@@ -37,11 +37,39 @@ async function show(req, res) {
   }
 }
 
-// Otros métodos para crear, actualizar y eliminar órdenes según tus necesidades...
-// ...
+async function store(req,res) {
+  try {
+    const { customerId, payment_method, shipping_address, cartItems } = req.body;
+
+    // Create the order
+    const order = await Order.create({
+      state: 'confirmed',
+      customerId,
+      payment_method: payment_method,
+      shipping_address: shipping_address,
+    });
+
+    // Create order products for each item in the cart
+    await Promise.all(
+      cartItems.map(async (item) => {
+        await OrderProduct.create({
+          orderId: order.id,
+          productId: item.productId,
+          quantity: item.quantity,
+        });
+      })
+    );
+
+    res.status(201).json({ message: 'Order created successfully' });
+  } catch (error) {
+    console.error('Error creating order:', error);
+    res.status(500).json({ message: 'Failed to create order' });
+  }
+}
 
 module.exports = {
   index,
   show,
+  store
   // Otros métodos exportados...
 };

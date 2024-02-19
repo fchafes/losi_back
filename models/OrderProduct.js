@@ -15,6 +15,7 @@ class OrderProduct extends Model {
             allowNull: false,
             defaultValue: 1, // Puedes ajustar el valor predeterminado según tus necesidades
           },
+        
       },
       {
         sequelize,

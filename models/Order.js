@@ -15,6 +15,9 @@ class Order extends Model {
         payment_method:{
           type: DataTypes.STRING
         },
+        shipping_address: {
+          type: DataTypes.STRING
+        },
       },
       {
         sequelize,
