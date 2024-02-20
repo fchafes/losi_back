@@ -37,6 +37,12 @@ class Customer extends Model {
         phone: {
           type: DataTypes.STRING, // URL
         },
+        resetPasswordToken: {
+          type: DataTypes.STRING,
+        },
+        resetPasswordExpires: {
+          type: DataTypes.DATE,
+        },
       },
       {
         sequelize,
