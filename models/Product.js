@@ -32,6 +32,7 @@ class Product extends Model {
       {
         sequelize,
         modelName: "product", // Nombre del modelo en singular y en minúscula.
+        paranoid:true,
       }
     );
 
