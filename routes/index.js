@@ -12,6 +12,7 @@ const tokenRoutes = require("./tokenRoutes")
 const stockRoutes = require("./stockRoutes")
 const sizeRoutes = require("./sizeRoutes")
 const orderProductRoutes = require("./orderProductRoutes")
+const paymentRoutes = require("./paymentRoutes")
 
 
 module.exports = (app) => {
@@ -30,5 +31,6 @@ module.exports = (app) => {
   app.use("/stock", stockRoutes);
   app.use("/size", sizeRoutes);
   app.use("/orderProduct", orderProductRoutes);
+  app.use("/", paymentRoutes);
 
 };
