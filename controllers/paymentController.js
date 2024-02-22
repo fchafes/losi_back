@@ -1,6 +1,8 @@
+require("dotenv").config();
+
 const {MercadoPagoConfig,Preference} = require('mercadopago');
 // Agrega credenciales
-const client = new MercadoPagoConfig({ accessToken: 'TEST-2509782001690764-022117-bedefb8cee5cd87c46026a7a9b95368b-274998896' });
+const client = new MercadoPagoConfig({ accessToken: process.env.MERCADO_PAGO_ACCESS_TOKEN });
 
 // Store a newly created resource in storage.
 async function store(req, res) {
@@ -8,12 +10,10 @@ async function store(req, res) {
     const preferenceData = {
       items: [
         {
-          productId: req.body.cartItems.productId,
-          quantity: Number(req.body.cartItems.quantity),
-          price: Number(req.body.total),
-          unit_price: Number(req.body.cartItems.unit_price),
-          currency_id: "UYU",
-          name: req.body.cartItems.name,
+            title: req.body.name,
+            unit_price: req.body.price,
+            quantity: req.body.quantity,
+            currency_id: "UYU",
         }
       
       ],
@@ -26,6 +26,7 @@ async function store(req, res) {
     };
     console.log(req.body);
     console.log("hola");
+    console.log(req.body.cartItems);
     const preference= new Preference(client);
     const response = await preference.create({body:preferenceData});
     res.json(response);
