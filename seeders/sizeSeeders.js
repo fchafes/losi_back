@@ -46,6 +46,9 @@ module.exports = async () => {
     {
       sizes: "9.0",
     },
+    {
+      sizes: "N/A",
+    },
   ];
 
   await Size.bulkCreate(sizes);

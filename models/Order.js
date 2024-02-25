@@ -9,7 +9,7 @@ class Order extends Model {
           primaryKey: true,
           autoIncrement: true,
         },
-        state: {
+        order_state: {
           type: DataTypes.STRING,
         },
         payment_method:{
@@ -18,6 +18,32 @@ class Order extends Model {
         shipping_address: {
           type: DataTypes.STRING
         },
+        collection_id: {
+          type: DataTypes.BIGINT.UNSIGNED,
+        },
+        collection_status:{
+          type: DataTypes.STRING,
+        },
+        payment_id:{
+          type: DataTypes.BIGINT.UNSIGNED,
+        },
+        status:{
+          type: DataTypes.STRING,
+        },
+        payment_type :{
+          type: DataTypes.STRING
+        },
+        merchant_order_id: {
+          type: DataTypes.BIGINT.UNSIGNED,
+        },
+        preference_id:{
+          type: DataTypes.STRING,
+        },
+        merchant_account_id:{
+          type: DataTypes.BIGINT.UNSIGNED,
+        }
+
+
       },
       {
         sequelize,

@@ -21,27 +21,27 @@ module.exports = async () => {
   const orders = [
     {
       customerId: 2,
-      state: "Confirmed",
+      order_state: "Confirmed",
       payment_method: "Mercado Pago",
     },
     {
       customerId: 4,
-      state: "Processing",
+      order_state: "Processing",
       payment_method: "Credit Card",
     },
     {
       customerId: 8,
-      state: "Pending",
+      order_state: "Pending",
       payment_method: "PayPal",
     },
     {
       customerId: 1,
-      state: "Cancelled",
+      order_state: "Cancelled",
       payment_method: "Credit Card",
     },
     {
       customerId: 6,
-      state: "In Transit",
+      order_state: "In Transit",
       payment_method: "PayPal",
     },
   ];

@@ -19,14 +19,12 @@ async function store(req, res) {
       ],
       back_urls: {
         success: "http://localhost:5173/",
-        failure: "http://localhost:5173/",
-        pending: "http://localhost:5173/"
+        failure: "http://localhost:5173/feedback",
+        pending: "http://localhost:5173/feedback"
       },
       auto_return: "approved"
     };
-    console.log(req.body);
-    console.log("hola");
-    console.log(req.body.cartItems);
+  
     const preference= new Preference(client);
     const response = await preference.create({body:preferenceData});
     res.json(response);

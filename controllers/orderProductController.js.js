@@ -12,6 +12,7 @@ async function store(req, res) {
       });
   
       res.status(201).json(orderProduct);
+      console.log("Orden realizada");
     } catch (error) {
       console.error('Error creating order product:', error);
       res.status(500).json({ message: 'Failed to create order product' });

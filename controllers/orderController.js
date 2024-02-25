@@ -54,6 +54,7 @@ async function store(req, res) {
 
         // If no size is found, return null or handle the case as needed
         return null;
+
       } catch (error) {
         console.error('Error finding size:', error);
         // Handle the error as needed
@@ -63,7 +64,7 @@ async function store(req, res) {
 
     // Create the order
     const order = await Order.create({
-      state: "confirmed",
+      order_state: "confirmed",
       customerId,
       payment_method: payment_method,
       shipping_address: shipping_address,

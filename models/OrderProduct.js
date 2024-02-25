@@ -19,6 +19,7 @@ class OrderProduct extends Model {
           type: DataTypes.STRING,
           allowNull: true,
         }
+        
       },
       {
         sequelize,

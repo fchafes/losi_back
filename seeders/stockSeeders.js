@@ -98,17 +98,17 @@ module.exports = async () => {
     {
       stock: 10,
       productId: 7,
-      sizeId: null,
+      sizeId: 10,
     },
     {
       stock: 10,
       productId: 8,
-      sizeId: null,
+      sizeId: 10,
     },
     {
       stock: 10,
       productId: 9,
-      sizeId: null,
+      sizeId: 10,
     },
     {
       stock: 10,
@@ -123,7 +123,7 @@ module.exports = async () => {
     {
       stock: 10,
       productId: 12,
-      sizeId: null,
+      sizeId: 10,
     },
     {
       stock: 10,
@@ -228,7 +228,7 @@ module.exports = async () => {
     {
       stock: 10,
       productId: 21,
-      sizeId: null,
+      sizeId: 10,
     },
     {
       stock: 10,
@@ -238,7 +238,7 @@ module.exports = async () => {
     {
       stock: 10,
       productId: 23,
-      sizeId: null,
+      sizeId: 10,
     },
     {
       stock: 10,
@@ -812,22 +812,22 @@ module.exports = async () => {
     {
       stock: 10,
       productId: 70,
-      sizeId: null,
+      sizeId: 10,
     },
     {
       stock: 10,
       productId: 71,
-      sizeId: null,
+      sizeId: 10,
     },
     {
       stock: 10,
       productId: 72,
-      sizeId: null,
+      sizeId: 10,
     },
     {
       stock: 10,
       productId: 73,
-      sizeId: null,
+      sizeId: 10,
     },
   ];
 
