@@ -18,7 +18,7 @@ async function store(req, res) {
       
       ],
       back_urls: {
-        success: "http://localhost:5173/",
+        success: "http://localhost:5173/feedback",
         failure: "http://localhost:5173/feedback",
         pending: "http://localhost:5173/feedback"
       },
