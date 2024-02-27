@@ -6,7 +6,7 @@ const paymentController = require("../controllers/paymentController");
 // ...
 
 router.post("/create_preference", paymentController.store);
-router.patch("/feedback", paymentController.update);
+// router.patch("/feedback", paymentController.update);
 
 
 

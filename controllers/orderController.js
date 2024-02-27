@@ -149,9 +149,11 @@ Losi Skateboards`,
 
 
 
+
 module.exports = {
   index,
   show,
   store,
+ 
   // Otros métodos exportados...
 };
