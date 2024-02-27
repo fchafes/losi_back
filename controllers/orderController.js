@@ -1,6 +1,31 @@
 const { Order, OrderProduct, Product, Customer, Stock, Size } = require("../models");
 const nodemailer = require("nodemailer");
-// Obtener todas las órdenes
+
+
+async function getLastOrder(req, res) {
+  const { customerId } = req.params;
+
+  try {
+    const lastOrder = await Order.findOne({
+      where: { customerId },
+      order: [['createdAt', 'DESC']],
+      include: [
+        { model: OrderProduct, include: [Product] },
+        { model: Customer },
+      ],
+    });
+
+    if (!lastOrder) {
+      return res.status(404).json({ message: "No orders found for this customer" });
+    }
+
+    res.status(200).json(lastOrder);
+  } catch (error) {
+    console.error("Error retrieving last order:", error);
+    res.status(500).json({ error: "Failed to retrieve last order" });
+  }
+}
+// Obtener todas las órden
 async function index(req, res) {
   try {
     const orders = await Order.findAll({
@@ -154,6 +179,6 @@ module.exports = {
   index,
   show,
   store,
- 
+ getLastOrder,
   // Otros métodos exportados...
 };

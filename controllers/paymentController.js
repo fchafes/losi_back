@@ -79,37 +79,48 @@ async function store(req, res) {
     let itemsList = "";
     await Promise.all(
       response.items.map(async (item) => {
-        console.log("this is response", item.id)
+        console.log("this is response", item.id);
         const product = await Product.findByPk(item.id);
         if (product) {
-          await Promise.all(
-            cartItems.map(async (cartItem) => {
-              const sizeId = await getSizeIdForSelectedSize(cartItem.selectedSize);
-              if (sizeId) {
+          cartItems.map(async (cartitem) => {
+            const sizeId = await getSizeIdForSelectedSize(cartitem.selectedSize);
+            if (sizeId) {
+              // Check if the OrderProduct already exists
+              const existingOrderProduct = await OrderProduct.findOne({
+                where: {
+                  orderId: order.id,
+                  productId: cartitem.id,
+                  selectedSize: cartitem.selectedSize,
+                },
+              });
+    
+              if (!existingOrderProduct) {
                 await OrderProduct.create({
                   orderId: order.id,
-                  productId: cartItem.id,
-                  quantity: cartItem.quantity,
-                  selectedSize: cartItem.selectedSize,
+                  productId: cartitem.id,
+                  quantity: cartitem.quantity,
+                  selectedSize: cartitem.selectedSize,
                 });
-                itemsList += `Quantity:${cartItem.quantity} Product: ${product.name} ${product.photo} Size: ${cartItem.selectedSize}\n`;
+                itemsList += `Quantity:${cartitem.quantity} Product: ${product.name} ${product.photo} Size: ${item.selectedSize}\n`;
     
                 const stock = await Stock.findOne({
                   where: {
-                    productId: cartItem.id,
+                    productId: cartitem.id,
                     sizeId: sizeId,
                   },
                 });
                 if (stock) {
-                  stock.stock -= cartItem.quantity;
+                  stock.stock -= cartitem.quantity;
                   await stock.save();
                 }
               }
-            })
-          );
+            }
+          });
         }
       })
     );
+    
+    
 
     console.log("Total:", total);
     // console.log(response);
