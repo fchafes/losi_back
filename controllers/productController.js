@@ -113,45 +113,65 @@ async function show(req, res) {
   }
 }
 
+
+
 // Store a newly created resource in storage.
 async function store(req, res) {
   const form = new formidable.IncomingForm({
     multiples: true,
     keepExtensions: true,
-    uploadDir: __dirname + "/../public", // Set the path where you want to save the uploaded files
+    uploadDir: __dirname + '/../public', // Set the path where you want to save the uploaded files
   });
 
   form.parse(req, async (err, fields, files) => {
     if (err) {
       console.error(err);
-      return res.status(500).json({ error: "Error parsing form data" });
+      return res.status(500).json({ error: 'Error parsing form data' });
     }
 
-    const { name, description, price,featured, categoryId } = fields;
+    // Destructure fields from form data
+    const { name, description, price, featured, categoryId } = fields;
 
-    const photo = files.photo; // This will contain information about the uploaded profile picture
-    console.log(fields.name[0]);
-    console.log("Received data:", fields);
-    console.log("Received files:", files);
-    console.log(photo);
+    // Check if the name field is present and not empty
+    if (!name || !name[0]) {
+      return res.status(400).json({ error: 'Name field is missing or empty' });
+    }
+
+    // Create the product
     try {
-      // Now you can use the User.create() with the data from fields and files
+      // Create the product with the provided fields
       const newProduct = await Product.create({
         name: name[0],
         description: description[0],
         price: price[0],
-        photo: photo[0].newFilename,
+        photo: files.photo[0].newFilename,
         featured: featured[0] === 'true',
         categoryId: categoryId[0],
       });
 
+      // Retrieve all sizes from the database
+      const sizes = await Size.findAll();
+
+      // Create stock records for each size with stock 0 for the new product
+      await Promise.all(
+        sizes.map(async (size) => {
+          await Stock.create({
+            productId: newProduct.id,
+            sizeId: size.id,
+            stock: 0,
+          });
+        })
+      );
+
+      // Respond with the newly created product
       res.json(newProduct);
     } catch (error) {
       console.error(error);
-      res.status(500).json({ error: "Error creating product" });
+      res.status(500).json({ error: 'Error creating product' });
     }
   });
 }
+
 
 // Update the specified resource in storage.
 async function update(req, res) {

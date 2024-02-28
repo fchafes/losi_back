@@ -7,5 +7,5 @@ router.get("/", stockController.index);
 router.get("/:productId", stockController.showSizes);
 router.get("/:productId/:sizeId", stockController.showOneSize);
 router.patch("/:productId/:sizeId", stockController.update);
-
+router.post("/:productId",stockController.store);
 module.exports = router;

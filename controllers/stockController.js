@@ -54,7 +54,11 @@ async function showOneSize(req, res) {
 }
 
 // Store a newly created resource in storage.
-async function store(req, res) {}
+async function store(req, res) {  
+}
+
+
+
 
 // Update the specified resource in storage.
 async function update(req, res) {
