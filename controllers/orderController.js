@@ -73,8 +73,22 @@ async function show(req, res) {
 async function store(req, res) {
   
   try {
+    console.log(req.body)
     const { customerId, payment_method, shipping_address, cartItems } =
       req.body;
+
+      const searchParams = new URLSearchParams(req.url.split('?')[1]);
+      const collectionId = searchParams.get("collection_id");
+      const collectionStatus = searchParams.get("collection_status");
+      const paymentId = searchParams.get("payment_id");
+      const status = searchParams.get("status");
+      const externalReference = searchParams.get("external_reference");
+      const paymentType = searchParams.get("payment_type");
+      const merchantOrderId = searchParams.get("merchant_order_id");
+      const preferenceId = searchParams.get("preference_id");
+      const siteId = searchParams.get("site_id");
+      const processingMode = searchParams.get("processing_mode");
+      const merchantAccountId = searchParams.get("merchant_account_id");
 
     const getSizeIdForSelectedSize = async (selectedSize) => {
       try {
@@ -99,16 +113,16 @@ async function store(req, res) {
     const order = await Order.create({
       order_state: "confirmed",
       customerId,
-      payment_method: payment_method,
+      payment_method: req.body.payment_id,
       shipping_address: shipping_address,
-      collection_id,
-      collection_status,
-      payment_id ,
-      status: null,
-      payment_type,
-      merchant_order_id,
-      preference_id,
-      merchant_account_id,
+      collection_id: req.body.collection_id,
+      collection_status: req.body.collection_status,
+      payment_id: req.body.payment_id,
+      status: req.body.status,
+      payment_type: req.body.paymen_type,
+      merchant_order_id: req.bodymerchant_order_id,
+      preference_id: req.body.preference_id,
+      merchant_account_id: req.body.merchant_account_id,
     });
 
     // Prepare email content
