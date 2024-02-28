@@ -71,24 +71,11 @@ async function show(req, res) {
 }
 
 async function store(req, res) {
-  
   try {
-    console.log(req.body)
+    console.log(req.body);
     const { customerId, payment_method, shipping_address, cartItems } =
       req.body;
 
-      const searchParams = new URLSearchParams(req.url.split('?')[1]);
-      const collectionId = searchParams.get("collection_id");
-      const collectionStatus = searchParams.get("collection_status");
-      const paymentId = searchParams.get("payment_id");
-      const status = searchParams.get("status");
-      const externalReference = searchParams.get("external_reference");
-      const paymentType = searchParams.get("payment_type");
-      const merchantOrderId = searchParams.get("merchant_order_id");
-      const preferenceId = searchParams.get("preference_id");
-      const siteId = searchParams.get("site_id");
-      const processingMode = searchParams.get("processing_mode");
-      const merchantAccountId = searchParams.get("merchant_account_id");
 
     const getSizeIdForSelectedSize = async (selectedSize) => {
       try {
@@ -119,8 +106,8 @@ async function store(req, res) {
       collection_status: req.body.collection_status,
       payment_id: req.body.payment_id,
       status: req.body.status,
-      payment_type: req.body.paymen_type,
-      merchant_order_id: req.bodymerchant_order_id,
+      payment_type: req.body.payment_type,
+      merchant_order_id: req.body.merchant_order_id,
       preference_id: req.body.preference_id,
       merchant_account_id: req.body.merchant_account_id,
     });
@@ -141,7 +128,15 @@ async function store(req, res) {
               quantity: item.quantity,
               selectedSize: item.selectedSize,
             });
-            itemsList += `Quantity:${item.quantity} Product: ${product.name} ${product.photo} Size: ${item.selectedSize}\n`;
+            itemsList += 
+            
+            `Product: ${product.name} 
+            
+            Quantity:${item.quantity} 
+            
+            Size: ${item.selectedSize}
+            
+            Image: ${product.photo}\n`;
 
             // Update stock
             const stock = await Stock.findOne({
@@ -158,7 +153,7 @@ async function store(req, res) {
         }
       })
     );
-
+    console.log("items List :", itemsList);
     // Get the customer's email address
     const customer = await Customer.findByPk(customerId);
     const customerEmail = customer ? customer.email : "unknown";
@@ -186,6 +181,17 @@ Items Ordered:
 ${itemsList}
 
 Payment Method: ${payment_method}
+
+Mercado Pago Details:
+
+  collection id : ${req.body.collection_id},
+  collection_status : ${req.body.collection_status},
+  payment_id : ${req.body.payment_id},
+  status : ${req.body.status}
+  payment_type: ${req.body.payment_type}
+  merchant_order_id: ${req.body.merchant_order_id}
+  preference_id: ${req.body.preference_id}
+  merchant_account_id: ${req.body.merchant_account_id}
 
 If you have any questions or need further assistance, please feel free to contact us.
 
