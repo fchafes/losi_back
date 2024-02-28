@@ -19,13 +19,13 @@ class Order extends Model {
           type: DataTypes.STRING
         },
         collection_id: {
-          type: DataTypes.BIGINT.UNSIGNED,
+          type: DataTypes.STRING,
         },
         collection_status:{
           type: DataTypes.STRING,
         },
         payment_id:{
-          type: DataTypes.BIGINT.UNSIGNED,
+          type: DataTypes.STRING,
         },
         status:{
           type: DataTypes.STRING,
@@ -34,13 +34,13 @@ class Order extends Model {
           type: DataTypes.STRING
         },
         merchant_order_id: {
-          type: DataTypes.BIGINT.UNSIGNED,
+          type: DataTypes.STRING,
         },
         preference_id:{
           type: DataTypes.STRING,
         },
         merchant_account_id:{
-          type: DataTypes.BIGINT.UNSIGNED,
+          type: DataTypes.STRING,
         }
 
 

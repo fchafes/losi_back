@@ -1,6 +1,12 @@
-const { Order, OrderProduct, Product, Customer, Stock, Size } = require("../models");
+const {
+  Order,
+  OrderProduct,
+  Product,
+  Customer,
+  Stock,
+  Size,
+} = require("../models");
 const nodemailer = require("nodemailer");
-
 
 async function getLastOrder(req, res) {
   const { customerId } = req.params;
@@ -8,7 +14,7 @@ async function getLastOrder(req, res) {
   try {
     const lastOrder = await Order.findOne({
       where: { customerId },
-      order: [['createdAt', 'DESC']],
+      order: [["createdAt", "DESC"]],
       include: [
         { model: OrderProduct, include: [Product] },
         { model: Customer },
@@ -16,7 +22,9 @@ async function getLastOrder(req, res) {
     });
 
     if (!lastOrder) {
-      return res.status(404).json({ message: "No orders found for this customer" });
+      return res
+        .status(404)
+        .json({ message: "No orders found for this customer" });
     }
 
     res.status(200).json(lastOrder);
@@ -63,6 +71,7 @@ async function show(req, res) {
 }
 
 async function store(req, res) {
+  
   try {
     const { customerId, payment_method, shipping_address, cartItems } =
       req.body;
@@ -79,9 +88,8 @@ async function store(req, res) {
 
         // If no size is found, return null or handle the case as needed
         return null;
-
       } catch (error) {
-        console.error('Error finding size:', error);
+        console.error("Error finding size:", error);
         // Handle the error as needed
         return null;
       }
@@ -93,6 +101,14 @@ async function store(req, res) {
       customerId,
       payment_method: payment_method,
       shipping_address: shipping_address,
+      collection_id,
+      collection_status,
+      payment_id ,
+      status: null,
+      payment_type,
+      merchant_order_id,
+      preference_id,
+      merchant_account_id,
     });
 
     // Prepare email content
@@ -172,13 +188,10 @@ Losi Skateboards`,
   }
 }
 
-
-
-
 module.exports = {
   index,
   show,
   store,
- getLastOrder,
+  getLastOrder,
   // Otros métodos exportados...
 };
