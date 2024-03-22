@@ -27,6 +27,7 @@ async function showSizes(req, res) {
       res.status(404).json({ error: 'No se encontró stock para los parámetros proporcionados' });
       return;
     }
+    
     res.status(200).json(stock);
     } catch (error) {
     console.error('Error al buscar el stock:', error);
