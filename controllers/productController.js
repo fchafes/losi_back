@@ -1,6 +1,16 @@
 const { Product, Category, Size, Stock } = require("../models");
 const formidable = require("formidable");
 const { Sequelize, Op } = require("sequelize");
+const { createClient } = require("@supabase/supabase-js");
+const fs = require("fs");
+const path = require("path");
+
+// ...
+
+const supabase = createClient(
+  process.env.SUPABASE_URL,
+  process.env.SUPABASE_KEY
+);
 
 // Display a listing of the resource.
 async function index(req, res) {
@@ -113,30 +123,48 @@ async function show(req, res) {
   }
 }
 
-
-
 // Store a newly created resource in storage.
 async function store(req, res) {
   const form = new formidable.IncomingForm({
     multiples: true,
     keepExtensions: true,
-    uploadDir: __dirname + '/../public', // Set the path where you want to save the uploaded files
   });
 
+  console.log("Inicio de la función store");
+
   form.parse(req, async (err, fields, files) => {
+  console.log("Contenido de files.photo:", files.photo);
+
+    console.log("Dentro del form.parse");
+  const ext = path.extname(files.photo[0].filepath);
+
+
+    const { data, error } = await supabase.storage
+      .from("images")
+      .upload(files.photo[0].newFilename, fs.createReadStream(files.photo[0].filepath), {
+        cacheControl: "3600",
+        upsert: false,
+        contentType: files.photo.mimetype,
+        duplex: "half",
+      });
+
     if (err) {
       console.error(err);
-      return res.status(500).json({ error: 'Error parsing form data' });
+      return res.status(500).json({ error: "Error parsing form data" });
     }
-
+    console.log("Antes de obtener la ruta del archivo");
     // Destructure fields from form data
     const { name, description, price, featured, categoryId } = fields;
 
     // Check if the name field is present and not empty
     if (!name || !name[0]) {
-      return res.status(400).json({ error: 'Name field is missing or empty' });
+      return res.status(400).json({ error: "Name field is missing or empty" });
     }
-
+    const filePath = files.photo && files.photo.path;
+    if (!filePath) {
+      // Manejar el caso en el que la ruta del archivo es undefined
+      return res.status(400).json({ error: "Ruta de archivo no encontrada" });
+    } console.log("Después de obtener la ruta del archivo");
     // Create the product
     try {
       // Create the product with the provided fields
@@ -145,7 +173,7 @@ async function store(req, res) {
         description: description[0],
         price: price[0],
         photo: files.photo[0].newFilename,
-        featured: featured[0] === 'true',
+        featured: featured[0] === "true",
         categoryId: categoryId[0],
       });
 
@@ -167,11 +195,10 @@ async function store(req, res) {
       res.json(newProduct);
     } catch (error) {
       console.error(error);
-      res.status(500).json({ error: 'Error creating product' });
+      res.status(500).json({ error: "Error creating product" });
     }
   });
 }
-
 
 // Update the specified resource in storage.
 async function update(req, res) {
@@ -211,13 +238,17 @@ async function update(req, res) {
       if (description) product.description = description[0];
       if (price) product.price = price[0];
       if (photo) product.photo = photo[0].newFilename;
-      if (featured) product.featured = featured[0] === 'true';
+      if (featured) product.featured = featured[0] === "true";
       if (categoryId) product.categoryId = categoryId[0];
       // Guardar los cambios en el producto actualizado
       await product.save();
 
       // Responder con el producto actualizado en formato JSON
-      res.json({ success: true, message: "Product updated successfully", product });
+      res.json({
+        success: true,
+        message: "Product updated successfully",
+        product,
+      });
     } catch (error) {
       console.error(error);
       res.status(500).json({ error: "Error updating product" });
@@ -247,7 +278,6 @@ async function destroy(req, res) {
     res.status(500).json({ error: "Error al eliminar el producto" });
   }
 }
-
 
 // Otros handlers...
 // ...
